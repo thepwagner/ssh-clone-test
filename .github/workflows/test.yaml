@@ -15,8 +15,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - run: |
+          eval "$(ssh-agent)"
           mkdir ~/.ssh/
           echo "${{secrets.CLONING_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
+          echo "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" >> $GITHUB_ENV
 
       - run: ./test
