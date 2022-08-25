@@ -13,7 +13,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          persist-credentials: false
       - run: |
+          mkdir ~/.ssh/
           echo "${{secrets.CLONING_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
